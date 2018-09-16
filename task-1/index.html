@@ -1,0 +1,36 @@
+<html>
+<head>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/v-tooltip"></script>
+    <script src="https://unpkg.com/v-copy@0.1.0"></script>
+</head>
+<body>
+
+<div id="app">
+    <button @click="isOpen = !isOpen"  v-tooltip="tooltip"><span v-if="!isOpen">Open users</span><span  v-if="isOpen">Close users</span></button>
+    <div class="caption">Total users: {{usersLength}}</div>
+    <table v-if="isOpen">
+        <tr class="table-header">
+            <th></th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Middle Name</th>
+            <th>Photo</th>
+        </tr>
+        <tr v-for="user in users">
+            <td class="table-item"><button v-copy="getFullName(user)">Copy full name</button></td>
+            <td class="table-item">{{user.name | capitalize}}</td>
+            <td class="table-item">{{user.surname | capitalize}}</td>
+            <td class="table-item">{{user.middleName | capitalize}}</td>
+            <td class="table-item">
+                <div class="photo-wrapper"><img :src="(user.photo !== '' && user.photo !== undefined) ? user.photo : defaultPhoto"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
